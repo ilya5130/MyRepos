@@ -1,4 +1,5 @@
 import pygame
+import random
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -6,8 +7,8 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__(*args)
         self.image = load_image('enemy.png')
         self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = 0
+        self.rect.x = random.randrange(10)
+        self.rect.y = random.randrange(height - 10)
         self.direction = 1
 
     def update(self, *args):
@@ -25,7 +26,7 @@ pygame.init()
 size = width, height = 500, 500
 
 screen = pygame.display.set_mode(size)
-FPS = 20
+FPS = 30
 clock = pygame.time.Clock()
 running = True
 all_sprites = pygame.sprite.Group()

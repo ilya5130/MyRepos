@@ -9,7 +9,6 @@ class Bomb(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(width - self.image.get_width())
         self.rect.y = random.randrange(height - self.image.get_height())
-        self.exploded = False
         self.direction = 1
 
     def update(self, *args):
@@ -17,12 +16,6 @@ class Bomb(pygame.sprite.Sprite):
         if self.rect.x < 0 or self.rect.x > width - self.image.get_width():
             self.direction *= -1
             self.image = pygame.transform.flip(self.image, True, False)
-        if args and not self.exploded:
-            self.rect.x += self.image.get_width() // 2
-            self.rect.y += self.image.get_height() // 2
-            self.exploded = True
-            self.rect.x -= self.image.get_width() // 2
-            self.rect.y -= self.image.get_height() // 2
 
 
 def load_image(filename):
@@ -33,12 +26,12 @@ pygame.init()
 size = width, height = 500, 500
 
 screen = pygame.display.set_mode(size)
-FPS = 60
+FPS = 20
 clock = pygame.time.Clock()
 running = True
 all_sprites = pygame.sprite.Group()
 
-for i in range(5):
+for i in range(2):
     sprite = Bomb(all_sprites)
 
 while running:
@@ -46,8 +39,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         all_sprites.update(event)
-
-    screen.fill((128, 128, 128))
+    screen.fill((49, 51, 53))
     all_sprites.draw(screen)
     clock.tick(FPS)
     pygame.display.flip()
